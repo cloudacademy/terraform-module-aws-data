@@ -1,0 +1,15 @@
+output "random_string" { value = random_string.random_string.id }
+output "uuid" { value = random_uuid.uuid.result }
+output "unixtime" { value = time_static.time.unix }
+output "rfc3339_time" { value = time_static.time.rfc3339 }
+output "account_id" { value = data.aws_caller_identity.current.account_id }
+output "region" { value = data.aws_region.current.name }
+output "partition" { value = data.aws_partition.current.id }
+output "default_vpc_id" { value = data.aws_vpc.default.id }
+output "internet_gateway_id" { value = data.aws_internet_gateway.default.id }
+output "subnet_id_a" { value = data.aws_subnet.subnet_a.id }
+output "subnet_id_b" { value = data.aws_subnet.subnet_b.id }
+output "amazon_linux_2_ami" { value = nonsensitive(data.aws_ssm_parameter.amazon_linux_2.value) }
+output "amazon_linux_2023_ami" { value = nonsensitive(data.aws_ssm_parameter.amazon_linux_2023.value) }
+output "key_pair_name" { value = data.aws_key_pair.student.key_name }
+output "vpc_security_group" { value = data.aws_security_group.vpc_security_group.id }
