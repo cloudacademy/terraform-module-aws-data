@@ -9,7 +9,7 @@ See the [outputs.tf](outputs.tf) file for exposed data available for use.
 ```tf
 # Define the module
 module aws_data {
-    source = ""
+    source = "github.com/cloudacademy/terraform-module-aws-data"
 
     random_string_length = 8
 }
@@ -18,10 +18,10 @@ module aws_data {
 resource "aws_security_group" "example" {
   name        = "example"
   description = "Example"
-  vpc_id      = aws_data.default_vpc_id
+  vpc_id      = module.aws_data.default_vpc_id
 }
 
 data "aws_s3_bucket" "example" {
-  bucket = "lab-example-${aws_data.random_string}-${aws_data.unixtime}"
+  bucket = "lab-example-${module.aws_data.random_string}-${module.aws_data.unixtime}"
 }
 ```
