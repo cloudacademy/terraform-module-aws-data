@@ -21,7 +21,7 @@ resource "aws_security_group" "example" {
   vpc_id      = module.aws_data.default_vpc_id
 }
 
-data "aws_s3_bucket" "example" {
+resource "aws_s3_bucket" "example" {
   bucket = "lab-example-${module.aws_data.random_string}-${module.aws_data.unixtime}"
 }
 ```
