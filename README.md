@@ -25,3 +25,20 @@ resource "aws_s3_bucket" "example" {
   bucket = "lab-example-${module.aws_data.random_string}-${module.aws_data.unixtime}"
 }
 ```
+
+To specify a tag version of the module to use the ref query string parameter:
+
+```tf
+module "aws_data" {
+  source = "github.com/cloudacademy/terraform-module-aws-data?ref=v0.0.1"
+}
+```
+
+## Developing
+
+Module can be easily tested locally with:
+
+```bash
+terraform init
+terraform plan
+```

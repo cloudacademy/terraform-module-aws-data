@@ -27,6 +27,15 @@ data "aws_subnet" "subnet_a" {
   }
 }
 
+data "aws_network_acls" "subnet_a" {
+  vpc_id = data.aws_vpc.default.id
+
+  filter {
+    name   = "association.subnet-id"
+    values = [data.aws_subnet.subnet_a.id]
+  }
+}
+
 data "aws_subnet" "subnet_b" {
   vpc_id            = data.aws_vpc.default.id
   availability_zone = "us-west-2b"
@@ -35,6 +44,15 @@ data "aws_subnet" "subnet_b" {
   filter {
     name   = "map-public-ip-on-launch"
     values = [true]
+  }
+}
+
+data "aws_network_acls" "subnet_b" {
+  vpc_id = data.aws_vpc.default.id
+
+  filter {
+    name   = "association.subnet-id"
+    values = [data.aws_subnet.subnet_b.id]
   }
 }
 
