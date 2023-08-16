@@ -4,6 +4,15 @@ data "aws_region" "current" {}
 
 data "aws_partition" "current" {}
 
+data "aws_availability_zones" "available" {
+  state = "available"
+  filter {
+    name   = "region-name"
+    values = [data.aws_region.current.id]
+  }
+}
+
+
 data "aws_vpc" "default" {
   default = true
   state   = "available"

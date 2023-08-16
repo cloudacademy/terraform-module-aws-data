@@ -1,21 +1,60 @@
-output "random_string" { value = random_string.random_string.id }
-output "uuid" { value = random_uuid.uuid.result }
-output "unixtime" { value = time_static.time.unix }
-output "rfc3339_time" { value = time_static.time.rfc3339 }
-output "account_id" { value = data.aws_caller_identity.current.account_id }
-output "region" { value = data.aws_region.current.name }
-output "partition" { value = data.aws_partition.current.id }
-output "default_vpc_id" { value = data.aws_vpc.default.id }
-output "internet_gateway_id" { value = data.aws_internet_gateway.default.id }
-output "subnet_a_id" { value = data.aws_subnet.subnet_a.id }
-output "subnet_a_az" { value = data.aws_subnet.subnet_a.availability_zone }
-output "subnet_a_nacl_id"{ value = data.aws_network_acls.subnet_a.ids[0] }
-output "subnet_a_cidr_block"{ value = data.aws_subnet.subnet_a.cidr_block }
-output "subnet_b_id" { value = data.aws_subnet.subnet_b.id }
-output "subnet_b_az" { value = data.aws_subnet.subnet_b.availability_zone }
-output "subnet_b_nacl_id" { value = data.aws_network_acls.subnet_b.ids[0] }
-output "subnet_b_cidr_block"{ value = data.aws_subnet.subnet_b.cidr_block }
-output "amazon_linux_2_ami_id" { value = nonsensitive(data.aws_ssm_parameter.amazon_linux_2.value) }
-output "amazon_linux_2023_ami_id" { value = nonsensitive(data.aws_ssm_parameter.amazon_linux_2023.value) }
-output "key_pair_name" { value = data.aws_key_pair.student.key_name }
-output "vpc_security_group_id" { value = data.aws_security_group.vpc_security_group.id }
+output "lab" {
+  value = {
+    uuid          = random_uuid.uuid.result
+    unixtime      = time_static.time.unix
+    rfc3339_time  = time_static.time.rfc3339
+    random_string = random_string.random_string.id
+  }
+}
+
+output "aws" {
+  value = {
+    account_id         = data.aws_caller_identity.current.account_id
+    partition          = data.aws_partition.current.id
+    region             = data.aws_region.current.name
+    availability_zones = data.aws_availability_zones.available.names
+    key_pair_name      = data.aws_key_pair.student.key_name
+  }
+}
+
+output "default_vpc" {
+  value = {
+    id         = data.aws_vpc.default.id
+    cidr_block = data.aws_vpc.default.cidr_block
+    internet_gateway = {
+      id = data.aws_internet_gateway.default.id
+    }
+    security_group = {
+      id = data.aws_security_group.vpc_security_group.id
+    }
+    subnets = {
+      a = {
+        id                = data.aws_subnet.subnet_a.id
+        cidr_block        = data.aws_subnet.subnet_a.cidr_block
+        availability_zone = data.aws_subnet.subnet_a.availability_zone
+        nacl = {
+          id = data.aws_network_acls.subnet_a.ids[0]
+        }
+      }
+      b = {
+        id                = data.aws_subnet.subnet_b.id
+        cidr_block        = data.aws_subnet.subnet_b.cidr_block
+        availability_zone = data.aws_subnet.subnet_b.availability_zone
+        nacl = {
+          id = data.aws_network_acls.subnet_b.ids[0]
+        }
+      }
+    }
+  }
+}
+
+output "amis" {
+  value = {
+    amazon_linux_2 = {
+      id = nonsensitive(data.aws_ssm_parameter.amazon_linux_2.value)
+    }
+    amazon_linux_2023 = {
+      id = nonsensitive(data.aws_ssm_parameter.amazon_linux_2023.value)
+    }
+  }
+}
