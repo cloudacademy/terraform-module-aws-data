@@ -18,6 +18,10 @@ data "aws_vpc" "default" {
   state   = "available"
 }
 
+data "aws_route_table" "default" {
+  route_table_id = data.aws_vpc.main_route_table_id
+}
+
 data "aws_internet_gateway" "default" {
   filter {
     name   = "attachment.vpc-id"

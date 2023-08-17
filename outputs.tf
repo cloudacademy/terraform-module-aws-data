@@ -21,6 +21,9 @@ output "default_vpc" {
   value = {
     id         = data.aws_vpc.default.id
     cidr_block = data.aws_vpc.default.cidr_block
+    main_route_table = {
+      id = data.aws_route_table.default.id
+    }
     internet_gateway = {
       id = data.aws_internet_gateway.default.id
     }
