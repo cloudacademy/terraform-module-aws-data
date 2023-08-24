@@ -18,11 +18,11 @@ module aws_data {
 resource "aws_security_group" "example" {
   name        = "example"
   description = "Example"
-  vpc_id      = module.aws_data.default_vpc_id
+  vpc_id      = module.aws_data.default_vpc.id
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "lab-example-${module.aws_data.random_string}-${module.aws_data.unixtime}"
+  bucket = "lab-example-${module.aws_data.lab.random_string}-${module.aws_data.lab.unixtime}"
 }
 ```
 
@@ -30,7 +30,7 @@ To specify a tag version of the module to use the ref query string parameter:
 
 ```tf
 module "aws_data" {
-  source = "github.com/cloudacademy/terraform-module-aws-data?ref=v0.0.1"
+  source = "github.com/cloudacademy/terraform-module-aws-data?ref=v1.0.1"
 }
 ```
 
