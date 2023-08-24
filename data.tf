@@ -4,9 +4,22 @@ data "aws_region" "current" {}
 
 data "aws_partition" "current" {}
 
+data "aws_availability_zones" "available" {
+  state = "available"
+  filter {
+    name   = "region-name"
+    values = [data.aws_region.current.id]
+  }
+}
+
+
 data "aws_vpc" "default" {
   default = true
   state   = "available"
+}
+
+data "aws_route_table" "default" {
+  route_table_id = data.aws_vpc.default.main_route_table_id
 }
 
 data "aws_internet_gateway" "default" {
@@ -58,6 +71,7 @@ data "aws_network_acls" "subnet_b" {
 
 data "aws_security_group" "vpc_security_group" {
   vpc_id = data.aws_vpc.default.id
+  name = "default"
 }
 
 data "aws_ssm_parameter" "amazon_linux_2" {
