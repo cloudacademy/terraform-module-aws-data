@@ -3,3 +3,9 @@ variable "random_string_length" {
   type        = number
   default     = 6
 }
+
+variable "region" {
+  description = "AWS region"
+  type        = string
+  default     = "us-west-2"
+}

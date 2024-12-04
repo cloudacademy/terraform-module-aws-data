@@ -30,13 +30,17 @@ data "aws_internet_gateway" "default" {
 }
 
 data "aws_subnet" "subnet_a" {
-  vpc_id            = data.aws_vpc.default.id
-  availability_zone = "us-west-2a"
-  state             = "available"
+  vpc_id = data.aws_vpc.default.id
+  state  = "available"
 
   filter {
     name   = "map-public-ip-on-launch"
     values = [true]
+  }
+
+  filter {
+    name   = "tag:Name"
+    values = ["subnet-a"]
   }
 }
 
@@ -50,13 +54,16 @@ data "aws_network_acls" "subnet_a" {
 }
 
 data "aws_subnet" "subnet_b" {
-  vpc_id            = data.aws_vpc.default.id
-  availability_zone = "us-west-2b"
-  state             = "available"
+  vpc_id = data.aws_vpc.default.id
 
   filter {
     name   = "map-public-ip-on-launch"
     values = [true]
+  }
+
+  filter {
+    name   = "tag:Name"
+    values = ["subnet-b"]
   }
 }
 
@@ -71,7 +78,7 @@ data "aws_network_acls" "subnet_b" {
 
 data "aws_security_group" "vpc_security_group" {
   vpc_id = data.aws_vpc.default.id
-  name = "default"
+  name   = "default"
 }
 
 data "aws_ssm_parameter" "amazon_linux_2" {

@@ -34,6 +34,16 @@ module "aws_data" {
 }
 ```
 
+To specify a region other than the default (`us-west-2`), supply a region argument:
+
+```tf
+module "aws_data" {
+  source = "github.com/cloudacademy/terraform-module-aws-data?ref=v1.0.2"
+
+  region = "us-east-1"
+}
+```
+
 ## Developing
 
 Module can be easily tested locally with:
