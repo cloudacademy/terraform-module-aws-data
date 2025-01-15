@@ -13,7 +13,7 @@ output "aws" {
     partition          = data.aws_partition.current.id
     region             = data.aws_region.current.name
     availability_zones = data.aws_availability_zones.available.names
-    key_pair_name      = data.aws_key_pair.student.key_name
+    key_pair_name      = data.aws_key_pair.student[0].key_name
   }
 }
 
