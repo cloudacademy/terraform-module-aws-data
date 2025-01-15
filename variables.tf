@@ -9,3 +9,8 @@ variable "region" {
   type        = string
   default     = "us-west-2"
 }
+
+variable "lookup_key_pair" {
+  description = "Lookup key pair flag"
+  default     = true
+}
