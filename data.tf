@@ -90,6 +90,7 @@ data "aws_ssm_parameter" "amazon_linux_2023" {
 }
 
 data "aws_key_pair" "student" {
+  count    = var.lookup_key_pair ? 1 : 0
   key_name = data.aws_caller_identity.current.account_id
 }
 
